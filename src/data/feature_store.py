@@ -127,11 +127,16 @@ class FeatureStore:
         
         df = pd.merge(
             bed_df,
-            fac_df[['phc_id', 'district', 'population_served', 'warehouse_lead_time_days']],
+            fac_df[['phc_id', 'district', 'population_served', 'warehouse_lead_time_days', 'total_beds']],
             on='phc_id',
-            how='left'
+            how='left',
+            suffixes=('', '_fac')
         )
         
+        # Ensure single total_beds column
+        if 'total_beds_fac' in df.columns:
+            df = df.drop(columns=['total_beds_fac'])
+            
         df = pd.merge(
             df,
             sig_df[['date', 'district', 'rainfall_mm', 'temperature_c', 'outbreak_active', 'outbreak_type', 'outbreak_severity', 'campaign_active']],
@@ -145,31 +150,44 @@ class FeatureStore:
         df['day_of_week'] = df['date'].dt.dayofweek
         df['month'] = df['date'].dt.month
         df['is_weekend'] = df['day_of_week'].isin([5, 6]).astype(int)
+        df['is_mon_tue'] = df['day_of_week'].isin([0, 1]).astype(int)
         
-        # Lags on admissions and occupancy
+        # Lags on admissions, occupancy, and occupancy %
         adm_grouped = df.groupby('phc_id')['admissions']
         occ_grouped = df.groupby('phc_id')['occupied_beds']
+        pct_grouped = df.groupby('phc_id')['occupancy_pct']
         
-        for lag in [1, 2, 3, 7, 14]:
+        for lag in [1, 2, 3, 7, 14, 21]:
             df[f'lag_adm_{lag}d'] = adm_grouped.shift(lag)
             df[f'lag_occ_{lag}d'] = occ_grouped.shift(lag)
+            df[f'lag_pct_{lag}d'] = pct_grouped.shift(lag)
             
         # Rolling stats
         df['rolling_adm_mean_7d'] = adm_grouped.transform(lambda x: x.shift(1).rolling(7, min_periods=1).mean())
+        df['rolling_adm_std_7d'] = adm_grouped.transform(lambda x: x.shift(1).rolling(7, min_periods=1).std()).fillna(0)
         df['rolling_occ_mean_7d'] = occ_grouped.transform(lambda x: x.shift(1).rolling(7, min_periods=1).mean())
+        df['rolling_occ_mean_14d'] = occ_grouped.transform(lambda x: x.shift(1).rolling(14, min_periods=1).mean())
         
-        # Future targets for 7-day occupancy projection
+        # Trends
+        df['adm_trend_7d'] = (df['lag_adm_1d'] - df['lag_adm_7d']).fillna(0)
+        df['occ_trend_7d'] = (df['lag_occ_1d'] - df['lag_occ_7d']).fillna(0)
+        
+        # Future targets for 7-day forward occupancy count and admission count
         for h in range(1, forecast_horizon + 1):
             df[f'target_occ_day_{h}'] = occ_grouped.shift(-h)
             df[f'target_adm_day_{h}'] = adm_grouped.shift(-h)
             
         target_cols = [f'target_occ_day_{h}' for h in range(1, forecast_horizon + 1)]
         
+        df['raw_phc_id'] = df['phc_id']
         df['raw_district'] = df['district']
-        df = pd.get_dummies(df, columns=['district', 'outbreak_type'], dtype=int, drop_first=False)
-        df['district'] = df['raw_district']
-        df = df.drop(columns=['raw_district'])
         
-        df_clean = df.dropna(subset=['lag_adm_14d'] + target_cols).reset_index(drop=True)
+        df = pd.get_dummies(df, columns=['phc_id', 'district', 'outbreak_type'], dtype=int, drop_first=False)
+        
+        df['phc_id'] = df['raw_phc_id']
+        df['district'] = df['raw_district']
+        df = df.drop(columns=['raw_phc_id', 'raw_district'])
+        
+        df_clean = df.dropna(subset=['lag_adm_21d'] + target_cols).reset_index(drop=True)
         
         return df_clean
