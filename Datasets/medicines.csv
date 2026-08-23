@@ -1,0 +1,16 @@
+drug_id,category,unit,reorder_point,safety_stock,shelf_life_days,unit_cost_inr
+ORS_SACHET,ORS,sachet,200,400,730,5.0
+PARACETAMOL_500MG,analgesic,tablet,500,1000,900,1.0
+AMOXICILLIN_500MG,antibiotic,capsule,300,600,540,3.0
+ANTIMALARIAL_ACT,antimalarial,tablet,100,250,730,12.0
+ANTIVENOM_VIAL,antivenom,vial,10,25,365,450.0
+INSULIN_VIAL,chronic,vial,40,80,300,180.0
+ORAL_REHYDRATION_IV,IV_fluid,bottle,80,150,545,40.0
+MEASLES_VACCINE,vaccine,dose,150,300,180,25.0
+ANTIHISTAMINE,allergy,tablet,200,400,900,2.0
+IBUPROFEN_400MG,analgesic,tablet,300,600,900,1.5
+COUGH_SYRUP,respiratory,bottle,100,200,545,30.0
+ANTIDIARRHEAL,gastro,tablet,150,300,730,2.0
+DENGUE_TEST_KIT,diagnostic,kit,50,120,365,60.0
+TETANUS_TOXOID,vaccine,dose,100,200,365,20.0
+ORAL_ANTIBIOTIC_PEDIATRIC,antibiotic,bottle,150,300,540,35.0

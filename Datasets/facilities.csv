@@ -1,0 +1,16 @@
+phc_id,phc_name,district,state,latitude,longitude,total_beds,population_served,doctors_required,nurses_required,pharmacists_required,distance_to_district_warehouse_km,warehouse_lead_time_days
+PHC_001,Vellore PHC-1,Vellore,Tamil Nadu,12.82868,79.448,25,19284,2,6,1,16.9,1
+PHC_002,Krishnagiri PHC-2,Krishnagiri,Tamil Nadu,12.2778,77.90436,30,24023,2,8,2,45.1,2
+PHC_003,Tiruvannamalai PHC-3,Tiruvannamalai,Tamil Nadu,11.91479,79.2301,30,10433,2,8,2,18.4,1
+PHC_004,Vellore PHC-4,Vellore,Tamil Nadu,12.69488,78.99547,20,35480,2,5,1,24.6,1
+PHC_005,Krishnagiri PHC-5,Krishnagiri,Tamil Nadu,12.5969,77.96135,20,8189,2,5,1,13.2,1
+PHC_006,Tiruvannamalai PHC-6,Tiruvannamalai,Tamil Nadu,12.30817,78.99242,40,19394,3,10,2,57.0,2
+PHC_007,Vellore PHC-7,Vellore,Tamil Nadu,13.04272,79.09785,15,16792,2,4,1,63.0,3
+PHC_008,Krishnagiri PHC-8,Krishnagiri,Tamil Nadu,12.73448,78.07693,15,31483,2,4,1,15.0,1
+PHC_009,Tiruvannamalai PHC-9,Tiruvannamalai,Tamil Nadu,12.22192,78.74877,30,34531,2,8,2,18.4,1
+PHC_010,Vellore PHC-10,Vellore,Tamil Nadu,13.09525,79.08011,15,17692,2,4,1,63.3,3
+PHC_011,Krishnagiri PHC-11,Krishnagiri,Tamil Nadu,12.71119,78.52135,30,40606,2,8,2,60.5,2
+PHC_012,Tiruvannamalai PHC-12,Tiruvannamalai,Tamil Nadu,11.93724,78.86189,15,32276,2,4,1,30.2,1
+PHC_013,Vellore PHC-13,Vellore,Tamil Nadu,12.75644,79.36262,20,29243,2,5,1,42.6,2
+PHC_014,Krishnagiri PHC-14,Krishnagiri,Tamil Nadu,12.3618,78.07109,15,10568,2,4,1,52.0,2
+PHC_015,Tiruvannamalai PHC-15,Tiruvannamalai,Tamil Nadu,12.0144,78.72857,30,41159,2,8,2,49.6,2
