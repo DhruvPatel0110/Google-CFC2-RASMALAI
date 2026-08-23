@@ -47,7 +47,7 @@ class FeatureStore:
         # Merge external signals by date and district
         df = pd.merge(
             df,
-            sig_df[['date', 'district', 'rainfall_mm', 'temperature_c', 'outbreak_active', 'outbreak_severity', 'campaign_active']],
+            sig_df[['date', 'district', 'rainfall_mm', 'temperature_c', 'outbreak_active', 'outbreak_type', 'outbreak_severity', 'campaign_active', 'campaign_type']],
             on=['date', 'district'],
             how='left'
         )
@@ -67,6 +67,7 @@ class FeatureStore:
         df['day_of_week'] = df['date'].dt.dayofweek
         df['month'] = df['date'].dt.month
         df['is_weekend'] = df['day_of_week'].isin([5, 6]).astype(int)
+        df['is_sunday'] = (df['day_of_week'] == 6).astype(int)
         
         # 2. Time-Series Lag Features (dispensed quantity)
         grouped = df.groupby(['phc_id', 'drug_id'])['qty_dispensed']
@@ -90,8 +91,22 @@ class FeatureStore:
         target_cols = [f'target_day_{h}' for h in range(1, forecast_horizon + 1)]
         df['target_7d_total'] = df[target_cols].sum(axis=1)
         
-        # One-hot encode categorical features
-        df = pd.get_dummies(df, columns=['category', 'district'], drop_first=False)
+        # Preserve keys before one-hot encoding
+        df['raw_drug_id'] = df['drug_id']
+        df['raw_district'] = df['district']
+        
+        # One-hot encode categorical features (with dtype=int for numeric compatibility)
+        df = pd.get_dummies(
+            df,
+            columns=['drug_id', 'category', 'district', 'outbreak_type', 'campaign_type'],
+            dtype=int,
+            drop_first=False
+        )
+        
+        # Restore raw keys
+        df['drug_id'] = df['raw_drug_id']
+        df['district'] = df['raw_district']
+        df = df.drop(columns=['raw_drug_id', 'raw_district'])
         
         # Drop initial rows with unpopulated lags (first 30 days) and end rows missing target
         df_clean = df.dropna(subset=['lag_qty_30d'] + target_cols).reset_index(drop=True)
@@ -119,7 +134,7 @@ class FeatureStore:
         
         df = pd.merge(
             df,
-            sig_df[['date', 'district', 'rainfall_mm', 'temperature_c', 'outbreak_active', 'outbreak_severity', 'campaign_active']],
+            sig_df[['date', 'district', 'rainfall_mm', 'temperature_c', 'outbreak_active', 'outbreak_type', 'outbreak_severity', 'campaign_active']],
             on=['date', 'district'],
             how='left'
         )
@@ -149,7 +164,12 @@ class FeatureStore:
             df[f'target_adm_day_{h}'] = adm_grouped.shift(-h)
             
         target_cols = [f'target_occ_day_{h}' for h in range(1, forecast_horizon + 1)]
-        df = pd.get_dummies(df, columns=['district'], drop_first=False)
+        
+        df['raw_district'] = df['district']
+        df = pd.get_dummies(df, columns=['district', 'outbreak_type'], dtype=int, drop_first=False)
+        df['district'] = df['raw_district']
+        df = df.drop(columns=['raw_district'])
+        
         df_clean = df.dropna(subset=['lag_adm_14d'] + target_cols).reset_index(drop=True)
         
         return df_clean
