@@ -1,5 +1,6 @@
 import unittest
 from fastapi.testclient import TestClient
+from src.data.loader import DataLoader
 from src.app.api import app
 
 class TestAppAPI(unittest.TestCase):
@@ -17,7 +18,8 @@ class TestAppAPI(unittest.TestCase):
         response = self.client.get("/api/v1/network/facilities")
         self.assertEqual(response.status_code, 200)
         facilities = response.json()
-        self.assertEqual(len(facilities), 15)
+        n_fac = len(DataLoader.load_facilities())
+        self.assertEqual(len(facilities), n_fac)
 
     def test_medicine_stockouts_endpoint(self):
         response = self.client.get("/api/v1/medicine/stockouts?date=2025-08-31")
@@ -27,12 +29,14 @@ class TestAppAPI(unittest.TestCase):
     def test_bed_occupancy_endpoint(self):
         response = self.client.get("/api/v1/beds/occupancy?date=2025-08-31")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 15)
+        n_fac = len(DataLoader.load_facilities())
+        self.assertEqual(len(response.json()), n_fac)
 
     def test_staff_attendance_endpoint(self):
         response = self.client.get("/api/v1/staff/attendance?date=2025-08-31")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 15)
+        n_fac = len(DataLoader.load_facilities())
+        self.assertEqual(len(response.json()), n_fac)
 
     def test_redistribution_plan_endpoint(self):
         response = self.client.get("/api/v1/redistribution/plan?date=2025-08-31")

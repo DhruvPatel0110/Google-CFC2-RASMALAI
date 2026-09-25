@@ -10,6 +10,7 @@ class StaffModuleService:
 
     def __init__(self):
         self.cleaned_data: Optional[Dict[str, pd.DataFrame]] = None
+        self._assessment_cache: Dict[str, pd.DataFrame] = {}
 
     def initialize_data(self):
         """Loads and pre-processes all staffing and demand datasets."""
@@ -19,10 +20,13 @@ class StaffModuleService:
 
     def run_assessment(self, as_of_date: Optional[str] = None) -> pd.DataFrame:
         """
-        Runs comprehensive staffing evaluation across all 15 facilities for given date.
+        Runs comprehensive staffing evaluation across all facilities for given date.
         """
         self.initialize_data()
         eval_date = pd.to_datetime(as_of_date) if as_of_date else self.cleaned_data['staff_attendance']['date'].max()
+        cache_key = str(eval_date)
+        if cache_key in self._assessment_cache:
+            return self._assessment_cache[cache_key]
         
         staff_eval_df = StaffingEvaluator.evaluate_facility_staffing(
             attendance_df=self.cleaned_data['staff_attendance'],
@@ -31,6 +35,7 @@ class StaffModuleService:
             bed_df=self.cleaned_data['bed_occupancy'],
             tx_df=self.cleaned_data['medicine_transactions']
         )
+        self._assessment_cache[cache_key] = staff_eval_df
         return staff_eval_df
 
     def is_facility_operationally_feasible(self, phc_id: str, as_of_date: Optional[str] = None) -> bool:

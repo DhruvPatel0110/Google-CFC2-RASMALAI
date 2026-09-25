@@ -33,9 +33,9 @@ class TestModule3Staff(unittest.TestCase):
         self.assertTrue(res_surge['doctor_crisis'])
 
     def test_facility_staffing_assessment(self):
-        """Verify assessment evaluates all 15 facilities."""
+        """Verify assessment evaluates all facilities."""
         df = self.service.run_assessment()
-        self.assertEqual(len(df), 15)
+        self.assertEqual(len(df), len(self.service.cleaned_data['facilities']))
         
         expected_cols = [
             'phc_id', 'district', 'doctors_required', 'doctors_present', 'doctors_shortfall',

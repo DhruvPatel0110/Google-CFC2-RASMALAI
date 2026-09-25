@@ -21,6 +21,7 @@ class RedistributionService:
         self.staff_service = staff_service or StaffModuleService()
         self.network: Optional[FacilityNetwork] = None
         self.optimizer: Optional[RedistributionOptimizer] = None
+        self._plan_cache: Dict[str, Dict[str, Any]] = {}
 
     def initialize(self):
         """Initializes network topology and sub-module services."""
@@ -42,6 +43,9 @@ class RedistributionService:
         self.initialize()
         eval_date = as_of_date or "2025-08-31"
         
+        if eval_date in self._plan_cache:
+            return self._plan_cache[eval_date]
+        
         # 1. Fetch Module 1 Signals
         med_deficits = self.medicine_service.get_critical_stockouts(eval_date)
         med_surpluses = self.medicine_service.get_surplus_facilities(eval_date)
@@ -56,8 +60,10 @@ class RedistributionService:
             pid = fac['phc_id']
             patient_candidates[pid] = self.bed_service.get_transferable_patients(pid, eval_date)
             
-        # 3. Fetch Module 3 Staffing Gatekeeper
-        staff_checker = lambda pid: self.staff_service.is_facility_operationally_feasible(pid, eval_date)
+        # 3. Fetch Module 3 Staffing Gatekeeper (Vectorized Lookup)
+        staff_assessment = self.staff_service.run_assessment(eval_date)
+        feasible_map = staff_assessment.set_index('phc_id')['operationally_feasible'].to_dict()
+        staff_checker = lambda pid: bool(feasible_map.get(pid, False))
         
         # 4. Optimize
         plan = self.optimizer.optimize_network_redistribution(
@@ -70,6 +76,7 @@ class RedistributionService:
             snapshot_date=eval_date
         )
         
+        self._plan_cache[eval_date] = plan
         return plan
 
     def get_medicine_manifest(self, as_of_date: Optional[str] = None) -> List[Dict[str, Any]]:

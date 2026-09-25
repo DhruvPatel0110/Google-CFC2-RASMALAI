@@ -1,16 +1,91 @@
 phc_id,phc_name,district,state,latitude,longitude,total_beds,population_served,doctors_required,nurses_required,pharmacists_required,distance_to_district_warehouse_km,warehouse_lead_time_days
-PHC_001,Vellore PHC-1,Vellore,Tamil Nadu,12.82868,79.448,25,19284,2,6,1,16.9,1
-PHC_002,Krishnagiri PHC-2,Krishnagiri,Tamil Nadu,12.2778,77.90436,30,24023,2,8,2,45.1,2
-PHC_003,Tiruvannamalai PHC-3,Tiruvannamalai,Tamil Nadu,11.91479,79.2301,30,10433,2,8,2,18.4,1
-PHC_004,Vellore PHC-4,Vellore,Tamil Nadu,12.69488,78.99547,20,35480,2,5,1,24.6,1
-PHC_005,Krishnagiri PHC-5,Krishnagiri,Tamil Nadu,12.5969,77.96135,20,8189,2,5,1,13.2,1
-PHC_006,Tiruvannamalai PHC-6,Tiruvannamalai,Tamil Nadu,12.30817,78.99242,40,19394,3,10,2,57.0,2
-PHC_007,Vellore PHC-7,Vellore,Tamil Nadu,13.04272,79.09785,15,16792,2,4,1,63.0,3
-PHC_008,Krishnagiri PHC-8,Krishnagiri,Tamil Nadu,12.73448,78.07693,15,31483,2,4,1,15.0,1
-PHC_009,Tiruvannamalai PHC-9,Tiruvannamalai,Tamil Nadu,12.22192,78.74877,30,34531,2,8,2,18.4,1
-PHC_010,Vellore PHC-10,Vellore,Tamil Nadu,13.09525,79.08011,15,17692,2,4,1,63.3,3
-PHC_011,Krishnagiri PHC-11,Krishnagiri,Tamil Nadu,12.71119,78.52135,30,40606,2,8,2,60.5,2
-PHC_012,Tiruvannamalai PHC-12,Tiruvannamalai,Tamil Nadu,11.93724,78.86189,15,32276,2,4,1,30.2,1
-PHC_013,Vellore PHC-13,Vellore,Tamil Nadu,12.75644,79.36262,20,29243,2,5,1,42.6,2
-PHC_014,Krishnagiri PHC-14,Krishnagiri,Tamil Nadu,12.3618,78.07109,15,10568,2,4,1,52.0,2
-PHC_015,Tiruvannamalai PHC-15,Tiruvannamalai,Tamil Nadu,12.0144,78.72857,30,41159,2,8,2,49.6,2
+PHC_001,Vellore PHC-1,Vellore,Tamil Nadu,12.87133,79.29476,25,20284,2,6,1,16.9,1
+PHC_002,Vellore PHC-2,Vellore,Tamil Nadu,12.79266,78.97341,30,25023,2,8,2,45.1,2
+PHC_003,Vellore PHC-3,Vellore,Tamil Nadu,12.75681,79.21242,30,11433,2,8,2,18.4,1
+PHC_004,Krishnagiri PHC-1,Krishnagiri,Tamil Nadu,12.40463,78.14323,20,36480,2,5,1,24.6,1
+PHC_005,Krishnagiri PHC-2,Krishnagiri,Tamil Nadu,12.55887,78.08392,20,9189,2,5,1,13.2,1
+PHC_006,Krishnagiri PHC-3,Krishnagiri,Tamil Nadu,12.56122,78.17139,40,20394,3,10,2,57.0,2
+PHC_007,Tiruvannamalai PHC-1,Tiruvannamalai,Tamil Nadu,12.29021,79.05688,15,17792,2,4,1,63.0,3
+PHC_008,Tiruvannamalai PHC-2,Tiruvannamalai,Tamil Nadu,12.33632,79.00436,15,32483,2,4,1,15.0,1
+PHC_009,Tiruvannamalai PHC-3,Tiruvannamalai,Tamil Nadu,12.22356,78.90708,30,35531,2,8,2,18.4,1
+PHC_010,Salem PHC-1,Salem,Tamil Nadu,11.75623,78.11906,15,18692,2,4,1,63.3,3
+PHC_011,Salem PHC-2,Salem,Tamil Nadu,11.76335,78.30422,30,41606,2,8,2,60.5,2
+PHC_012,Salem PHC-3,Salem,Tamil Nadu,11.51616,78.03655,15,33276,2,4,1,30.2,1
+PHC_013,Madurai PHC-1,Madurai,Tamil Nadu,9.84289,78.23815,20,30243,2,5,1,42.6,2
+PHC_014,Madurai PHC-2,Madurai,Tamil Nadu,9.84456,78.04646,15,11568,2,4,1,52.0,2
+PHC_015,Madurai PHC-3,Madurai,Tamil Nadu,9.81674,77.94179,30,42159,2,8,2,49.6,2
+PHC_016,Coimbatore PHC-1,Coimbatore,Tamil Nadu,11.11446,76.80246,20,31662,2,5,1,56.5,2
+PHC_017,Coimbatore PHC-2,Coimbatore,Tamil Nadu,10.9986,76.81015,20,20837,2,5,1,26.5,1
+PHC_018,Coimbatore PHC-3,Coimbatore,Tamil Nadu,11.09946,77.00532,30,14056,2,8,2,29.8,1
+PHC_019,Pune PHC-1,Pune,Maharashtra,18.69022,73.98231,25,42270,2,6,1,51.9,2
+PHC_020,Pune PHC-2,Pune,Maharashtra,18.51817,73.86488,20,32419,2,5,1,14.1,1
+PHC_021,Pune PHC-3,Pune,Maharashtra,18.35171,73.90581,20,31403,2,5,1,59.7,2
+PHC_022,Nagpur PHC-1,Nagpur,Maharashtra,21.05555,79.05594,25,42827,2,6,1,61.7,2
+PHC_023,Nagpur PHC-2,Nagpur,Maharashtra,21.18139,79.15832,30,11693,2,8,2,34.0,1
+PHC_024,Nagpur PHC-3,Nagpur,Maharashtra,21.04444,79.05814,30,27047,2,8,2,54.0,2
+PHC_025,Nashik PHC-1,Nashik,Maharashtra,20.14009,73.72428,15,10306,2,4,1,32.3,1
+PHC_026,Nashik PHC-2,Nashik,Maharashtra,20.11199,73.91966,15,30959,2,4,1,38.4,2
+PHC_027,Nashik PHC-3,Nashik,Maharashtra,19.99204,73.85908,20,9663,2,5,1,61.7,2
+PHC_028,Chhatrapati Sambhajinagar PHC-1,Chhatrapati Sambhajinagar,Maharashtra,19.81255,75.35006,25,26675,2,6,1,22.4,1
+PHC_029,Chhatrapati Sambhajinagar PHC-2,Chhatrapati Sambhajinagar,Maharashtra,19.87521,75.27162,20,36728,2,5,1,23.2,1
+PHC_030,Chhatrapati Sambhajinagar PHC-3,Chhatrapati Sambhajinagar,Maharashtra,20.04778,75.31127,15,16392,2,4,1,44.2,2
+PHC_031,Thane PHC-1,Thane,Maharashtra,19.28335,72.98924,20,35309,2,5,1,21.8,1
+PHC_032,Thane PHC-2,Thane,Maharashtra,19.28027,73.07228,15,34342,2,4,1,53.8,2
+PHC_033,Thane PHC-3,Thane,Maharashtra,19.20761,73.15213,20,24087,2,5,1,53.5,2
+PHC_034,Amravati PHC-1,Amravati,Maharashtra,20.81166,77.78255,25,35370,2,6,1,41.7,2
+PHC_035,Amravati PHC-2,Amravati,Maharashtra,21.00132,77.60557,20,20411,2,5,1,44.8,2
+PHC_036,Amravati PHC-3,Amravati,Maharashtra,20.82017,77.84834,20,44153,2,5,1,55.7,2
+PHC_037,Jaipur PHC-1,Jaipur,Rajasthan,26.97565,75.87198,15,30918,2,4,1,58.0,2
+PHC_038,Jaipur PHC-2,Jaipur,Rajasthan,26.82526,75.84489,30,25371,2,8,2,38.2,2
+PHC_039,Jaipur PHC-3,Jaipur,Rajasthan,26.81947,75.64082,30,38855,2,8,2,44.1,2
+PHC_040,Jodhpur PHC-1,Jodhpur,Rajasthan,26.18095,72.97002,25,10154,2,6,1,56.8,2
+PHC_041,Jodhpur PHC-2,Jodhpur,Rajasthan,26.20452,73.1639,30,41711,2,8,2,52.8,2
+PHC_042,Jodhpur PHC-3,Jodhpur,Rajasthan,26.29974,73.05335,20,25482,2,5,1,63.5,3
+PHC_043,Bikaner PHC-1,Bikaner,Rajasthan,27.94511,73.24183,20,37643,2,5,1,48.6,2
+PHC_044,Bikaner PHC-2,Bikaner,Rajasthan,27.92831,73.24904,25,31399,2,6,1,50.4,2
+PHC_045,Bikaner PHC-3,Bikaner,Rajasthan,28.10244,73.2428,20,28830,2,5,1,22.3,1
+PHC_046,Udaipur PHC-1,Udaipur,Rajasthan,24.61775,73.8849,20,14895,2,5,1,44.0,2
+PHC_047,Udaipur PHC-2,Udaipur,Rajasthan,24.69153,73.71345,20,14600,2,5,1,19.1,1
+PHC_048,Udaipur PHC-3,Udaipur,Rajasthan,24.66548,73.63358,15,17208,2,4,1,64.7,3
+PHC_049,Kota PHC-1,Kota,Rajasthan,25.20298,75.78544,30,41635,2,8,2,8.9,1
+PHC_050,Kota PHC-2,Kota,Rajasthan,25.36799,75.83895,40,9699,3,10,2,56.6,2
+PHC_051,Kota PHC-3,Kota,Rajasthan,25.1398,75.82344,30,28778,2,8,2,17.7,1
+PHC_052,Barmer PHC-1,Barmer,Rajasthan,25.77365,71.57512,25,43663,2,6,1,12.0,1
+PHC_053,Barmer PHC-2,Barmer,Rajasthan,25.64841,71.47971,20,25538,2,5,1,24.8,1
+PHC_054,Barmer PHC-3,Barmer,Rajasthan,25.68932,71.54362,15,21533,2,4,1,28.5,1
+PHC_055,Khordha PHC-1,Khordha,Odisha,20.10659,85.73257,30,38592,2,8,2,42.9,2
+PHC_056,Khordha PHC-2,Khordha,Odisha,20.03027,85.44307,25,11368,2,6,1,12.0,1
+PHC_057,Khordha PHC-3,Khordha,Odisha,20.14374,85.45948,30,22403,2,8,2,41.0,2
+PHC_058,Cuttack PHC-1,Cuttack,Odisha,20.44035,85.94473,20,31677,2,5,1,41.7,2
+PHC_059,Cuttack PHC-2,Cuttack,Odisha,20.29348,85.71625,30,38749,2,8,2,38.6,2
+PHC_060,Cuttack PHC-3,Cuttack,Odisha,20.40009,86.00083,20,30606,2,5,1,12.9,1
+PHC_061,Puri PHC-1,Puri,Odisha,19.65211,85.84249,20,16079,2,5,1,49.4,2
+PHC_062,Puri PHC-2,Puri,Odisha,19.98481,85.83707,20,30136,2,5,1,30.7,1
+PHC_063,Puri PHC-3,Puri,Odisha,19.78957,85.91906,20,41217,2,5,1,62.9,3
+PHC_064,Balasore PHC-1,Balasore,Odisha,21.61435,86.98405,20,10081,2,5,1,60.2,2
+PHC_065,Balasore PHC-2,Balasore,Odisha,21.47265,86.81982,15,29056,2,4,1,45.6,2
+PHC_066,Balasore PHC-3,Balasore,Odisha,21.41418,87.07725,25,18662,2,6,1,32.8,1
+PHC_067,Mayurbhanj PHC-1,Mayurbhanj,Odisha,22.01151,86.58258,20,12506,2,5,1,51.2,2
+PHC_068,Mayurbhanj PHC-2,Mayurbhanj,Odisha,21.75388,86.60719,15,22296,2,4,1,25.8,1
+PHC_069,Mayurbhanj PHC-3,Mayurbhanj,Odisha,22.10132,86.62852,15,44247,2,4,1,54.0,2
+PHC_070,Ganjam PHC-1,Ganjam,Odisha,19.32467,85.03728,25,32049,2,6,1,62.1,2
+PHC_071,Ganjam PHC-2,Ganjam,Odisha,19.5192,84.96392,15,44257,2,4,1,36.6,1
+PHC_072,Ganjam PHC-3,Ganjam,Odisha,19.39418,85.11623,25,39977,2,6,1,9.5,1
+PHC_073,Kamrup PHC-1,Kamrup,Assam,26.17538,91.89468,20,15833,2,5,1,40.7,2
+PHC_074,Kamrup PHC-2,Kamrup,Assam,26.01076,91.84823,30,41320,2,8,2,62.8,3
+PHC_075,Kamrup PHC-3,Kamrup,Assam,26.29043,91.62668,15,12373,2,4,1,9.0,1
+PHC_076,Dibrugarh PHC-1,Dibrugarh,Assam,27.3268,94.97788,15,34351,2,4,1,30.0,1
+PHC_077,Dibrugarh PHC-2,Dibrugarh,Assam,27.53818,94.85462,20,29358,2,5,1,14.7,1
+PHC_078,Dibrugarh PHC-3,Dibrugarh,Assam,27.54363,94.95842,30,42496,2,8,2,53.8,2
+PHC_079,Cachar PHC-1,Cachar,Assam,24.75483,92.66278,25,26506,2,6,1,31.5,1
+PHC_080,Cachar PHC-2,Cachar,Assam,24.78723,92.87841,20,16357,2,5,1,40.0,2
+PHC_081,Cachar PHC-3,Cachar,Assam,24.73919,92.84364,25,11914,2,6,1,13.9,1
+PHC_082,Jorhat PHC-1,Jorhat,Assam,26.89582,94.20559,30,9698,2,8,2,13.7,1
+PHC_083,Jorhat PHC-2,Jorhat,Assam,26.59015,94.36877,30,13360,2,8,2,26.2,1
+PHC_084,Jorhat PHC-3,Jorhat,Assam,26.91292,94.36592,20,14486,2,5,1,12.7,1
+PHC_085,Nagaon PHC-1,Nagaon,Assam,26.19941,92.72088,20,30972,2,5,1,50.9,2
+PHC_086,Nagaon PHC-2,Nagaon,Assam,26.45137,92.78826,15,30545,2,4,1,63.5,3
+PHC_087,Nagaon PHC-3,Nagaon,Assam,26.52494,92.52411,25,17924,2,6,1,28.0,1
+PHC_088,Sonitpur PHC-1,Sonitpur,Assam,26.49594,92.66408,25,44307,2,6,1,57.4,2
+PHC_089,Sonitpur PHC-2,Sonitpur,Assam,26.75565,92.76599,15,36569,2,4,1,58.8,2
+PHC_090,Sonitpur PHC-3,Sonitpur,Assam,26.50658,92.7974,15,37295,2,4,1,29.3,1

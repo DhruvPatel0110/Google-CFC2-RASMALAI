@@ -23,8 +23,20 @@ STAFFING_SUMMARY_FILE = DATASET_DIR / "staffing_daily_summary.csv"
 # Global Constants
 START_DATE = "2024-09-01"
 END_DATE = "2025-08-31"
-N_PHCS = 15
-DISTRICTS = ["Vellore", "Krishnagiri", "Tiruvannamalai"]
+N_PHCS = 90
+STATES = ["Tamil Nadu", "Maharashtra", "Rajasthan", "Odisha", "Assam"]
+DISTRICTS = [
+    # Tamil Nadu
+    "Vellore", "Krishnagiri", "Tiruvannamalai", "Salem", "Madurai", "Coimbatore",
+    # Maharashtra
+    "Pune", "Nagpur", "Nashik", "Chhatrapati Sambhajinagar", "Thane", "Amravati",
+    # Rajasthan
+    "Jaipur", "Jodhpur", "Bikaner", "Udaipur", "Kota", "Barmer",
+    # Odisha
+    "Khordha", "Cuttack", "Puri", "Balasore", "Mayurbhanj", "Ganjam",
+    # Assam
+    "Kamrup", "Dibrugarh", "Cachar", "Jorhat", "Nagaon", "Sonitpur"
+]
 
 # Forecasting Horizons
 FORECAST_HORIZON_DAYS = 7

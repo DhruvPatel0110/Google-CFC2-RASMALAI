@@ -49,9 +49,9 @@ class TestModule2Beds(unittest.TestCase):
             self.assertEqual(c['transfer_eligibility'], "SAFE_FOR_TRANSIT")
 
     def test_bed_assessment_and_7d_curves(self):
-        """Verify assessment produces 7-day trajectories across all 15 facilities."""
+        """Verify assessment produces 7-day trajectories across all facilities."""
         risk_df = self.service.run_assessment()
-        self.assertEqual(len(risk_df), 15)
+        self.assertEqual(len(risk_df), len(self.service.cleaned_data['facilities']))
         
         for day in range(1, 8):
             self.assertIn(f'proj_occ_day_{day}', risk_df.columns)

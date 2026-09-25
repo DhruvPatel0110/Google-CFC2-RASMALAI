@@ -22,12 +22,16 @@ class TestModule4Redistribution(unittest.TestCase):
         self.assertGreater(route['distance_km'], 0.0)
         self.assertGreater(route['travel_time_hours'], 0.0)
         
-        # Test sorted neighbors
+        # Test sorted neighbors within reachable range
         neighbors = self.network.get_sorted_neighbors("PHC_001")
-        self.assertEqual(len(neighbors), 14)  # 15 - 1
+        self.assertGreater(len(neighbors), 0)
         # Check ascending sort order
         travel_times = [n['travel_time_hours'] for n in neighbors]
         self.assertEqual(travel_times, sorted(travel_times))
+        
+        # Test full network neighbors with unlimited horizon
+        all_neighbors = self.network.get_sorted_neighbors("PHC_001", max_travel_hours=999.0)
+        self.assertEqual(len(all_neighbors), len(self.fac_df) - 1)
 
     def test_medicine_matcher_logic(self):
         """Verify nearest neighbor medicine matching and dynamic donor decrementing."""

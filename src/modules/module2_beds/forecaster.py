@@ -86,7 +86,7 @@ class BedOccupancyForecaster:
         if self.model is None:
             self.load()
             
-        X = feature_df[self.feature_cols]
+        X = feature_df.reindex(columns=self.feature_cols, fill_value=0)
         preds = self.model.predict(X)
         preds = np.clip(preds, a_min=0.0, a_max=None)
         

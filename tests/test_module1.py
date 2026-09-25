@@ -35,7 +35,8 @@ class TestModule1Medicine(unittest.TestCase):
     def test_stockout_assessment_and_alerts(self):
         """Verify assessment produces alert classifications and risk metrics."""
         risk_df = self.service.run_assessment()
-        self.assertEqual(len(risk_df), 15 * 15)  # 15 PHCs x 15 Drugs = 225 rows
+        expected_rows = len(self.service.cleaned_data['facilities']) * len(self.service.cleaned_data['medicines'])
+        self.assertEqual(len(risk_df), expected_rows)
         
         expected_cols = [
             'phc_id', 'drug_id', 'closing_stock', 'predicted_consumption_7d',

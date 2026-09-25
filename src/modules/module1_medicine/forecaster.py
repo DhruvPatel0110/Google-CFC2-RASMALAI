@@ -89,7 +89,7 @@ class MedicineDemandForecaster:
         if self.model is None:
             self.load()
             
-        X = feature_df[self.feature_cols]
+        X = feature_df.reindex(columns=self.feature_cols, fill_value=0)
         preds = self.model.predict(X)
         
         # Ensure non-negative consumption forecasts

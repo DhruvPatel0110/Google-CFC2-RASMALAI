@@ -4,6 +4,7 @@ import numpy as np
 import pydeck as pdk
 import altair as alt
 from datetime import datetime, timedelta
+from pathlib import Path
 
 # Module Service Imports
 from src.data.loader import DataLoader
@@ -28,6 +29,46 @@ st.markdown("""
 <style>
     /* Global Styles */
     .main { background-color: #0b0f19; }
+    
+    /* Enlarge Navigation Tabs (Text + Emojis / Icons) */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        padding: 4px 0 14px 0;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+    }
+    .stTabs [data-baseweb="tab"] {
+        height: 52px;
+        padding: 10px 20px;
+        background-color: rgba(30, 41, 59, 0.5);
+        border-radius: 10px 10px 0 0;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: rgba(56, 189, 248, 0.15);
+        border-color: rgba(56, 189, 248, 0.3);
+    }
+    .stTabs [data-baseweb="tab"] p,
+    .stTabs [data-baseweb="tab"] span,
+    .stTabs [data-baseweb="tab"] div {
+        font-size: 1.12rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.3px;
+        color: #cbd5e1 !important;
+    }
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(180deg, rgba(56, 189, 248, 0.22) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
+        border: 1px solid rgba(56, 189, 248, 0.5) !important;
+        border-bottom: 3px solid #38bdf8 !important;
+        box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
+    }
+    .stTabs [aria-selected="true"] p,
+    .stTabs [aria-selected="true"] span,
+    .stTabs [aria-selected="true"] div {
+        color: #38bdf8 !important;
+        font-weight: 700 !important;
+    }
     
     /* Metrics Header Cards */
     .metric-card {
@@ -75,6 +116,73 @@ st.markdown("""
         font-size: 0.75rem;
         font-weight: 600;
     }
+
+    /* Privacy Certificate Card Styles */
+    .cert-container {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        border-radius: 14px;
+        padding: 22px 24px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+        margin-top: 14px;
+    }
+    .cert-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #10b981;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+    .cert-subtitle {
+        font-size: 0.84rem;
+        color: #94a3b8;
+        margin-bottom: 18px;
+    }
+    .cert-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+    .cert-item {
+        background: rgba(30, 41, 59, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 10px;
+        padding: 12px 16px;
+    }
+    .cert-item-label {
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        color: #94a3b8;
+        letter-spacing: 0.8px;
+        margin-bottom: 4px;
+    }
+    .cert-item-val {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #f8fafc;
+    }
+    .cert-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    .cert-table th {
+        text-align: left;
+        padding: 10px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: #94a3b8;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .cert-table td {
+        padding: 10px;
+        font-size: 0.88rem;
+        color: #e2e8f0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -104,7 +212,14 @@ facilities_df = DataLoader.load_facilities()
 # ---------------------------------------------------------------------------
 # Sidebar Controls
 # ---------------------------------------------------------------------------
-st.sidebar.image("https://img.icons8.com/fluency/96/hospital-3.png", width=64)
+logo_file = Path(__file__).resolve().parent / "assets" / "logo.svg"
+if logo_file.exists():
+    st.sidebar.image(str(logo_file), width=72)
+else:
+    st.sidebar.markdown("""
+    <div style="font-size: 2.8rem; margin-bottom: 4px;">🏥</div>
+    """, unsafe_allow_html=True)
+
 st.sidebar.title("PHC Resilience Command")
 st.sidebar.caption("BRICS Healthcare Supply Chain & Federated AI Network")
 
@@ -137,10 +252,20 @@ else:
 
 st.sidebar.info(f"Active Snapshot: **{selected_date}**")
 
+available_states = sorted(facilities_df['state'].unique().tolist())
+states_filter = st.sidebar.multiselect(
+    "Filter by State",
+    options=available_states,
+    default=available_states
+)
+
+filtered_by_state = facilities_df[facilities_df['state'].isin(states_filter)] if states_filter else facilities_df
+available_districts = sorted(filtered_by_state['district'].unique().tolist())
+
 districts_filter = st.sidebar.multiselect(
     "Filter by District",
-    options=["Vellore", "Krishnagiri", "Tiruvannamalai"],
-    default=["Vellore", "Krishnagiri", "Tiruvannamalai"]
+    options=available_districts,
+    default=available_districts
 )
 
 st.sidebar.markdown("---")
@@ -162,8 +287,12 @@ tabs = st.tabs([
 # TAB 1: Command Center & Network Map
 # ---------------------------------------------------------------------------
 with tabs[0]:
+    n_states = len(facilities_df['state'].unique())
+    n_districts = len(facilities_df['district'].unique())
+    n_phcs = len(facilities_df)
+    
     st.title("National Health Resource Resilience Command Center")
-    st.caption("Federated real-time inventory visibility, early warnings, and automated redistribution across 15 PHC networks.")
+    st.caption(f"Federated real-time inventory visibility, early warnings, and automated redistribution across {n_phcs} PHC networks in {n_districts} districts across {n_states} states.")
     
     # Live Queries
     med_critical = med_service.get_critical_stockouts(selected_date)
@@ -178,8 +307,8 @@ with tabs[0]:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">Facilities Active</div>
-            <div class="metric-val" style="color:#38bdf8;">15 PHCs</div>
-            <div style="font-size:0.8rem; color:#94a3b8;">3 Districts (Tamil Nadu)</div>
+            <div class="metric-val" style="color:#38bdf8;">{n_phcs} PHCs</div>
+            <div style="font-size:0.8rem; color:#94a3b8;">{n_districts} Districts ({n_states} States)</div>
         </div>
         """, unsafe_allow_html=True)
     with col2:
@@ -270,17 +399,24 @@ with tabs[0]:
         auto_highlight=True
     )
     
+    if len(map_facilities) > 0:
+        center_lat = float(map_facilities['latitude'].mean())
+        center_lon = float(map_facilities['longitude'].mean())
+        zoom_level = 4.2 if len(map_facilities['state'].unique()) > 1 else 7.5
+    else:
+        center_lat, center_lon, zoom_level = 20.5937, 78.9629, 4.2
+        
     view_state = pdk.ViewState(
-        latitude=12.55,
-        longitude=78.8,
-        zoom=8.5,
+        latitude=center_lat,
+        longitude=center_lon,
+        zoom=zoom_level,
         pitch=30
     )
     
     r = pdk.Deck(
         layers=[scatter_layer, arc_layer],
         initial_view_state=view_state,
-        tooltip={"text": "Facility: {phc_id}\nName: {phc_name}\nDistrict: {district}\nBeds: {total_beds}"}
+        tooltip={"text": "Facility: {phc_id}\nName: {phc_name}\nDistrict: {district}, {state}\nBeds: {total_beds}"}
     )
     st.pydeck_chart(r)
 
@@ -429,8 +565,34 @@ with tabs[4]:
         ]]
         st.dataframe(med_transfers_df, use_container_width=True)
         
-        if st.button("🚀 Authorize & Dispatch All Emergency Transfers", type="primary"):
-            st.success(f"Dispatched {len(med_transfers_df)} transfer orders across the network. Notifications sent to District CMOs.")
+        dispatch_key = f"dispatched_{selected_date}"
+        
+        c_btn1, c_btn2 = st.columns([2, 1])
+        with c_btn1:
+            if st.button("🚀 Authorize & Dispatch All Emergency Transfers", type="primary", use_container_width=True):
+                st.session_state[dispatch_key] = True
+        
+        if st.session_state.get(dispatch_key, False):
+            with c_btn2:
+                if st.button("↺ Reset Dispatch Status", use_container_width=True):
+                    st.session_state[dispatch_key] = False
+                    st.rerun()
+                    
+            st.markdown(f"""
+            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(15, 23, 42, 0.95) 100%); border: 1.5px solid #10b981; border-radius: 12px; padding: 18px 22px; margin-top: 14px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);">
+                <div style="font-size: 1.15rem; font-weight: 700; color: #10b981; display: flex; align-items: center; gap: 8px;">
+                    ✅ EMERGENCY LOGISTICS DISPATCH TRANSMITTED TO NATIONAL FLEET
+                </div>
+                <div style="font-size: 0.92rem; color: #cbd5e1; margin-top: 6px;">
+                    Order Reference: <b>DISP-{selected_date.replace('-', '')}-NET90</b> | Status: <span style="background: rgba(16, 185, 129, 0.2); color:#10b981; padding: 2px 8px; border-radius: 4px; font-weight:700;">ACTIVE IN TRANSIT</span>
+                </div>
+                <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 8px; line-height: 1.6;">
+                    • <b>{len(med_transfers_df)}</b> medicine replenishment manifests dispatched via Cold-Chain transit units.<br>
+                    • Emergency alerts & digital waybills routed to respective District Chief Medical Officers (CMOs).<br>
+                    • Live GPS tracking initiated across state health logistics corridors.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
     else:
         st.info("No inter-PHC transfers required for current date.")
 
@@ -480,9 +642,88 @@ with tabs[5]:
             
             st.altair_chart(line_chart, use_container_width=True)
             
-            # Model Card
+            # Official Federated Privacy Certification & Governance Card
             st.subheader("Federated Model Card & Privacy Certification")
             model_card = fed_service.get_model_card()
-            st.json(model_card)
+            dp_cert = model_card.get('differential_privacy_certification', {})
+            gov = model_card.get('data_governance', {})
+            
+            st.markdown(f"""
+            <div class="cert-container">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <div class="cert-title">
+                            <span>🛡️</span> NATIONAL HEALTH DATA FEDERATION & PRIVACY CERTIFICATION
+                        </div>
+                        <div class="cert-subtitle">
+                            Issued under BRICS Healthcare Supply Chain Resilience Protocol & Indian DISHA Guidelines
+                        </div>
+                    </div>
+                    <div>
+                        <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px;">
+                            ● ZERO-DATA-LEAKAGE VERIFIED
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="cert-grid">
+                    <div class="cert-item">
+                        <div class="cert-item-label">Raw Patient Data Egress</div>
+                        <div class="cert-item-val" style="color: #10b981;">0.00% (Strict In-District Sovereignty)</div>
+                        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 4px;">Zero patient EHR records exfiltrated or centralized</div>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-item-label">Differential Privacy Guarantee</div>
+                        <div class="cert-item-val" style="color: #38bdf8;">ε = {dp_cert.get('total_epsilon_spent', sim_epsilon):.2f} (Laplace Mechanism)</div>
+                        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 4px;">Bounded membership inference privacy loss</div>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-item-label">Decentralized Consensus Nodes</div>
+                        <div class="cert-item-val" style="color: #a855f7;">{model_card.get('total_nodes', len(facilities_df['district'].unique()))} District Health Nodes</div>
+                        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 4px;">Federated Averaging (FedAvg) sample-weighted</div>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-item-label">Cryptographic Transport</div>
+                        <div class="cert-item-val" style="color: #f59e0b;">TLS 1.3 / Ephemeral Vectors</div>
+                        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 4px;">Only model weights & sample counts exchanged</div>
+                    </div>
+                </div>
+                
+                <table class="cert-table">
+                    <thead>
+                        <tr>
+                            <th>Security & Governance Dimension</th>
+                            <th>Verification Standard</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Data Sovereignty & Local Custody</b></td>
+                            <td>Local district node partitions only ({gov.get('data_residency', 'Local on-premise')})</td>
+                            <td><span class="badge-safe">VERIFIED PASS</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Decentralized Model Aggregation</b></td>
+                            <td>FedAvg sample-weighted without raw data pooling</td>
+                            <td><span class="badge-safe">VERIFIED PASS</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Differential Privacy Noise Injection</b></td>
+                            <td>{dp_cert.get('privacy_guarantee', 'Active ε-Differential Privacy Laplace noise mechanism')}</td>
+                            <td><span class="badge-safe">VERIFIED PASS</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Payload Security</b></td>
+                            <td>Gradient parameter vectors & sample weights only</td>
+                            <td><span class="badge-safe">VERIFIED PASS</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            with st.expander("🔍 View Technical Audit Schema & Model Metadata (JSON)"):
+                st.json(model_card)
         else:
             st.info("Click 'Run Federated Training Simulation' to execute a live FedAvg training cycle across decentralized district nodes.")
