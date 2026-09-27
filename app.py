@@ -24,112 +24,241 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom Glassmorphic Dark UI Theme
+# Custom Enterprise UI Theme: Light Blue (#E9F1FA), Bright Blue (#00ABE4), White (#FFFFFF)
 st.markdown("""
 <style>
     /* Global Styles */
-    .main { background-color: #0b0f19; }
+    .stApp {
+        background-color: #E9F1FA !important;
+        color: #1E293B;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .main { 
+        background-color: #E9F1FA !important; 
+    }
     
-    /* Enlarge Navigation Tabs (Text + Emojis / Icons) */
+    /* Vibrant Blue Sidebar (Image 4) with Crisp White Text */
+    [data-testid="stSidebar"], 
+    [data-testid="stSidebar"] > div:first-child,
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0284C7 0%, #00ABE4 40%, #0096C7 100%) !important;
+        border-right: none !important;
+    }
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] h4 {
+        color: #FFFFFF !important;
+        font-weight: 700 !important;
+    }
+    [data-testid="stSidebar"] .stMarkdown p,
+    [data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+        font-weight: 600 !important;
+    }
+    [data-testid="stSidebar"] .stCaption, 
+    [data-testid="stSidebar"] small {
+        color: #E0F2FE !important;
+    }
+    [data-testid="stSidebar"] hr {
+        border-color: rgba(255, 255, 255, 0.25) !important;
+    }
+    /* White Input Boxes for Easy Readability inside Blue Sidebar */
+    [data-testid="stSidebar"] div[data-baseweb="select"] > div,
+    [data-testid="stSidebar"] div[data-baseweb="input"] > div,
+    [data-testid="stSidebar"] input {
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        border-radius: 8px !important;
+        border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    }
+    [data-testid="stSidebar"] div[data-baseweb="select"] * {
+        color: #0F172A !important;
+    }
+    [data-testid="stSidebar"] div[data-baseweb="popover"] * {
+        color: #0F172A !important;
+    }
+    /* Sidebar Info Box */
+    [data-testid="stSidebar"] div[data-testid="stAlert"] {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        border: 1px solid rgba(255, 255, 255, 0.45) !important;
+        color: #FFFFFF !important;
+        border-radius: 8px !important;
+    }
+    [data-testid="stSidebar"] div[data-testid="stAlert"] * {
+        color: #FFFFFF !important;
+    }
+    [data-testid="stSidebarCollapseButton"] button,
+    [data-testid="stSidebarCollapseButton"] svg {
+        color: #FFFFFF !important;
+        fill: #FFFFFF !important;
+    }
+
+    /* Headings and Captions on Main Page */
+    h1, h2, h3, h4 {
+        color: #0F172A !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.3px;
+    }
+    .stMarkdown p, .stCaption {
+        color: #334155;
+    }
+    
+    /* Navigation Tabs */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
-        padding: 4px 0 14px 0;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+        padding: 6px 0 14px 0;
+        border-bottom: 2px solid #D4E5F5;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        background-color: transparent;
     }
     .stTabs [data-baseweb="tab"] {
-        height: 52px;
-        padding: 10px 20px;
-        background-color: rgba(30, 41, 59, 0.5);
-        border-radius: 10px 10px 0 0;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        height: 48px;
+        padding: 8px 18px;
+        background-color: #FFFFFF;
+        border-radius: 8px 8px 0 0;
+        border: 1px solid #D4E5F5;
         border-bottom: none;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 171, 228, 0.06);
     }
     .stTabs [data-baseweb="tab"]:hover {
-        background-color: rgba(56, 189, 248, 0.15);
-        border-color: rgba(56, 189, 248, 0.3);
+        background-color: #E0F2FE !important;
+        border-color: #00ABE4 !important;
+    }
+    .stTabs [data-baseweb="tab"][aria-selected="true"] {
+        background: #00ABE4 !important;
+        border: 1px solid #00ABE4 !important;
+        box-shadow: 0 4px 14px rgba(0, 171, 228, 0.35) !important;
     }
     .stTabs [data-baseweb="tab"] p,
     .stTabs [data-baseweb="tab"] span,
     .stTabs [data-baseweb="tab"] div {
-        font-size: 1.12rem !important;
+        font-size: 1.02rem !important;
         font-weight: 600 !important;
-        letter-spacing: 0.3px;
-        color: #cbd5e1 !important;
+        letter-spacing: 0.2px;
+        color: #0284C7 !important;
+        margin: 0 !important;
+        transition: color 0.2s ease;
     }
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(180deg, rgba(56, 189, 248, 0.22) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
-        border: 1px solid rgba(56, 189, 248, 0.5) !important;
-        border-bottom: 3px solid #38bdf8 !important;
-        box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
+    .stTabs [data-baseweb="tab"]:hover p,
+    .stTabs [data-baseweb="tab"]:hover span {
+        color: #0096C7 !important;
     }
-    .stTabs [aria-selected="true"] p,
-    .stTabs [aria-selected="true"] span,
-    .stTabs [aria-selected="true"] div {
-        color: #38bdf8 !important;
+    .stTabs [data-baseweb="tab"][aria-selected="true"] p,
+    .stTabs [data-baseweb="tab"][aria-selected="true"] span {
+        color: #FFFFFF !important;
         font-weight: 700 !important;
     }
     
-    /* Metrics Header Cards */
+    /* Metrics Header Cards (Image 3: Blue Background + White Text) */
     .metric-card {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 18px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-        backdrop-filter: blur(10px);
-        margin-bottom: 12px;
+        background: linear-gradient(135deg, #00ABE4 0%, #0284C7 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: 14px !important;
+        padding: 18px 20px !important;
+        box-shadow: 0 8px 24px rgba(0, 171, 228, 0.28) !important;
+        margin-bottom: 12px !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     }
-    .metric-val {
-        font-size: 2.2rem;
-        font-weight: 700;
-        letter-spacing: -0.5px;
-        margin: 4px 0;
+    .metric-card:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 12px 28px rgba(0, 171, 228, 0.4) !important;
     }
     .metric-title {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        color: #94a3b8;
-        letter-spacing: 1px;
+        font-size: 0.82rem !important;
+        text-transform: uppercase !important;
+        color: #E0F2FE !important;
+        letter-spacing: 1px !important;
+        font-weight: 700 !important;
+        margin-bottom: 4px !important;
     }
+    .metric-val {
+        font-size: 2.3rem !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.5px !important;
+        margin: 4px 0 !important;
+        color: #FFFFFF !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+    }
+    .metric-sub {
+        font-size: 0.84rem !important;
+        color: #FFFFFF !important;
+        font-weight: 500 !important;
+        opacity: 0.95 !important;
+    }
+    .badge-card-pill {
+        background: rgba(255, 255, 255, 0.25) !important;
+        color: #FFFFFF !important;
+        border: 1px solid rgba(255, 255, 255, 0.4) !important;
+        padding: 2px 8px !important;
+        border-radius: 6px !important;
+        font-size: 0.78rem !important;
+        font-weight: 700 !important;
+        display: inline-block !important;
+    }
+    
+    /* Status Badges */
     .badge-critical {
-        color: #ef4444;
-        background: rgba(239, 68, 68, 0.15);
+        color: #DC2626;
+        background: #FEE2E2;
+        border: 1px solid #FECACA;
         padding: 4px 8px;
         border-radius: 6px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;
     }
     .badge-warning {
-        color: #f59e0b;
-        background: rgba(245, 158, 11, 0.15);
+        color: #B45309;
+        background: #FEF3C7;
+        border: 1px solid #FDE68A;
         padding: 4px 8px;
         border-radius: 6px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;
     }
     .badge-safe {
-        color: #10b981;
-        background: rgba(16, 185, 129, 0.15);
+        color: #047857;
+        background: #D1FAE5;
+        border: 1px solid #A7F3D0;
         padding: 4px 8px;
         border-radius: 6px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;
+    }
+
+    /* Buttons (Bright Blue #00ABE4) */
+    .stButton > button[kind="primary"], .stButton > button {
+        background-color: #00ABE4 !important;
+        color: #FFFFFF !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        border: none !important;
+        box-shadow: 0 2px 8px rgba(0, 171, 228, 0.25) !important;
+        transition: all 0.2s ease !important;
+    }
+    .stButton > button:hover {
+        background-color: #0096C7 !important;
+        box-shadow: 0 4px 14px rgba(0, 171, 228, 0.35) !important;
+        transform: translateY(-1px);
     }
 
     /* Privacy Certificate Card Styles */
     .cert-container {
-        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(15, 23, 42, 0.95) 100%);
-        border: 1px solid rgba(16, 185, 129, 0.4);
+        background: #FFFFFF;
+        border: 1.5px solid #00ABE4;
         border-radius: 14px;
         padding: 22px 24px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+        box-shadow: 0 6px 24px rgba(0, 171, 228, 0.1);
         margin-top: 14px;
     }
     .cert-title {
         font-size: 1.2rem;
         font-weight: 700;
-        color: #10b981;
+        color: #00ABE4;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -137,7 +266,7 @@ st.markdown("""
     }
     .cert-subtitle {
         font-size: 0.84rem;
-        color: #94a3b8;
+        color: #64748B;
         margin-bottom: 18px;
     }
     .cert-grid {
@@ -147,22 +276,23 @@ st.markdown("""
         margin-bottom: 18px;
     }
     .cert-item {
-        background: rgba(30, 41, 59, 0.65);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: #F8FAFD;
+        border: 1px solid #E2E8F0;
         border-radius: 10px;
         padding: 12px 16px;
     }
     .cert-item-label {
         font-size: 0.74rem;
         text-transform: uppercase;
-        color: #94a3b8;
+        color: #64748B;
         letter-spacing: 0.8px;
         margin-bottom: 4px;
+        font-weight: 600;
     }
     .cert-item-val {
         font-size: 1.05rem;
         font-weight: 700;
-        color: #f8fafc;
+        color: #0F172A;
     }
     .cert-table {
         width: 100%;
@@ -174,14 +304,16 @@ st.markdown("""
         padding: 10px;
         font-size: 0.8rem;
         text-transform: uppercase;
-        color: #94a3b8;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: #1E293B;
+        background-color: #E9F1FA;
+        border-bottom: 2px solid #D4E5F5;
+        font-weight: 700;
     }
     .cert-table td {
         padding: 10px;
         font-size: 0.88rem;
-        color: #e2e8f0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        color: #334155;
+        border-bottom: 1px solid #E2E8F0;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -301,46 +433,46 @@ with tabs[0]:
     staff_alerts = staff_service.get_critical_staffing_alerts(selected_date)
     redis_plan = redis_service.generate_plan(selected_date)
     
-    # Top KPI Cards
+    # Top KPI Cards (Image 3: Blue Background + White Text)
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">Facilities Active</div>
-            <div class="metric-val" style="color:#38bdf8;">{n_phcs} PHCs</div>
-            <div style="font-size:0.8rem; color:#94a3b8;">{n_districts} Districts ({n_states} States)</div>
+            <div class="metric-val">{n_phcs} PHCs</div>
+            <div class="metric-sub">{n_districts} Districts ({n_states} States)</div>
         </div>
         """, unsafe_allow_html=True)
     with col2:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">Stockout Alerts</div>
-            <div class="metric-val" style="color:#ef4444;">{len(med_critical)} SKUs</div>
-            <div style="font-size:0.8rem; color:#ef4444;">Deficit replenishment needed</div>
+            <div class="metric-val">{len(med_critical)} SKUs</div>
+            <div class="metric-sub"><span class="badge-card-pill">Deficit replenishment needed</span></div>
         </div>
         """, unsafe_allow_html=True)
     with col3:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">Bed Overflow Risk</div>
-            <div class="metric-val" style="color:#f59e0b;">{len(overcrowded)} PHCs</div>
-            <div style="font-size:0.8rem; color:#f59e0b;">Projected &gt; 85% capacity</div>
+            <div class="metric-val">{len(overcrowded)} PHCs</div>
+            <div class="metric-sub"><span class="badge-card-pill">Projected &gt; 85% capacity</span></div>
         </div>
         """, unsafe_allow_html=True)
     with col4:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">Staff Deficits</div>
-            <div class="metric-val" style="color:#a855f7;">{len(staff_alerts)} PHCs</div>
-            <div style="font-size:0.8rem; color:#a855f7;">Doctor/Nurse shortfalls</div>
+            <div class="metric-val">{len(staff_alerts)} PHCs</div>
+            <div class="metric-sub"><span class="badge-card-pill">Doctor/Nurse shortfalls</span></div>
         </div>
         """, unsafe_allow_html=True)
     with col5:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">Transfers Dispatched</div>
-            <div class="metric-val" style="color:#10b981;">{redis_plan['total_recommendations']}</div>
-            <div style="font-size:0.8rem; color:#10b981;">{redis_plan['impact_metrics']['average_transit_time_hours']}h avg road transit</div>
+            <div class="metric-val">{redis_plan['total_recommendations']}</div>
+            <div class="metric-sub">{redis_plan['impact_metrics']['average_transit_time_hours']}h avg road transit</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -356,8 +488,8 @@ with tabs[0]:
         is_staff_crit = any(s['phc_id'] == phc_id for s in staff_alerts)
         
         if is_med_crit or is_bed_crit or is_staff_crit:
-            return [239, 68, 68, 200]  # Red
-        return [16, 185, 129, 200]    # Green
+            return [220, 38, 38, 200]  # Red
+        return [5, 150, 105, 200]    # Green
         
     map_facilities['color'] = map_facilities['phc_id'].apply(get_color)
     map_facilities['radius'] = map_facilities['total_beds'] * 120
@@ -383,8 +515,8 @@ with tabs[0]:
         data=pd.DataFrame(transfer_arcs),
         get_source_position=["from_lon", "from_lat"],
         get_target_position=["to_lon", "to_lat"],
-        get_source_color=[56, 189, 248, 160],
-        get_target_color=[239, 68, 68, 200],
+        get_source_color=[0, 171, 228, 200],
+        get_target_color=[220, 38, 38, 200],
         get_width=3,
         auto_highlight=True
     )
@@ -416,9 +548,10 @@ with tabs[0]:
     r = pdk.Deck(
         layers=[scatter_layer, arc_layer],
         initial_view_state=view_state,
+        map_style="light",
         tooltip={"text": "Facility: {phc_id}\nName: {phc_name}\nDistrict: {district}, {state}\nBeds: {total_beds}"}
     )
-    st.pydeck_chart(r)
+    st.pydeck_chart(r, width='stretch')
 
 # ---------------------------------------------------------------------------
 # TAB 2: Module 1: Medicine Stockout Forecasting
@@ -453,13 +586,13 @@ with tabs[1]:
             forecast_vals = [float(item_row[f'target_day_{i}']) for i in range(1, 8)]
             chart_df = pd.DataFrame({"Forecast Day": forecast_days, "Predicted Consumption": forecast_vals})
             
-            chart = alt.Chart(chart_df).mark_bar(color="#38bdf8", cornerRadius=6).encode(
+            chart = alt.Chart(chart_df).mark_bar(color="#00ABE4", cornerRadius=6).encode(
                 x=alt.X("Forecast Day", sort=None),
                 y=alt.Y("Predicted Consumption:Q", title="Units Dispensed"),
                 tooltip=["Forecast Day", "Predicted Consumption"]
             ).properties(height=260)
             
-            st.altair_chart(chart, use_container_width=True)
+            st.altair_chart(chart, width='stretch')
             st.info(f"**Actionable Recommendation:** {item_row['recommendation']}")
 
     st.subheader("Automated District Warehouse Purchase Orders (Reorder Proposals)")
@@ -467,7 +600,7 @@ with tabs[1]:
     orders_table = po_orders[po_orders['alert_level'].isin(['CRITICAL', 'WARNING'])][[
         'phc_id', 'district', 'drug_id', 'closing_stock', 'safety_stock', 'days_to_stockout', 'shortfall_qty', 'alert_level'
     ]]
-    st.dataframe(orders_table, use_container_width=True)
+    st.dataframe(orders_table, width='stretch')
 
 # ---------------------------------------------------------------------------
 # TAB 3: Module 2: Bed Occupancy & Admission Predictor
@@ -491,20 +624,20 @@ with tabs[2]:
             curve_df = pd.DataFrame(bed_report['daily_7d_forecast'])
             curve_df['Day Label'] = curve_df['day'].apply(lambda d: f"Day +{d}")
             
-            occ_line = alt.Chart(curve_df).mark_line(point=True, color="#f59e0b", strokeWidth=3).encode(
+            occ_line = alt.Chart(curve_df).mark_line(point=True, color="#D97706", strokeWidth=3).encode(
                 x=alt.X("Day Label", sort=None),
                 y=alt.Y("projected_occupancy_pct:Q", scale=alt.Scale(domain=[0, 100]), title="Projected Occupancy (%)"),
                 tooltip=["Day Label", "projected_occupied", "projected_occupancy_pct"]
             )
-            threshold = alt.Chart(pd.DataFrame({'y': [85.0]})).mark_rule(color="#ef4444", strokeDash=[5, 5]).encode(y='y:Q')
+            threshold = alt.Chart(pd.DataFrame({'y': [85.0]})).mark_rule(color="#DC2626", strokeDash=[5, 5]).encode(y='y:Q')
             
-            st.altair_chart(occ_line + threshold, use_container_width=True)
+            st.altair_chart(occ_line + threshold, width='stretch')
             st.warning(f"**Guidance:** {bed_report['recommendation']}")
 
     st.subheader("Candidate Recovering Patients Eligible for Ambulance Transit")
     transfer_candidates = bed_service.get_transferable_patients(sel_bed_phc, selected_date)
     if transfer_candidates:
-        st.dataframe(pd.DataFrame(transfer_candidates), use_container_width=True)
+        st.dataframe(pd.DataFrame(transfer_candidates), width='stretch')
     else:
         st.success("No acute transfers required: all admitted patients are either in initial stabilization or facility has adequate capacity.")
 
@@ -542,7 +675,7 @@ with tabs[3]:
             "Pharmacists Expected": s['roles']['pharmacist']['expected_present'],
             "Shortfall Risk": "⚠️ ALERT" if s['alert_expected'] else "✅ NORMAL"
         })
-    st.dataframe(pd.DataFrame(shift_rows), use_container_width=True)
+    st.dataframe(pd.DataFrame(shift_rows), width='stretch')
 
 # ---------------------------------------------------------------------------
 # TAB 5: Module 4: Cross-District Redistribution Optimizer
@@ -563,30 +696,30 @@ with tabs[4]:
         med_transfers_df = pd.DataFrame(plan['medicine_transfers'])[[
             'recommendation_id', 'source_phc', 'destination_phc', 'drug_id', 'quantity', 'distance_km', 'travel_time_hours', 'is_cross_district', 'approval_role'
         ]]
-        st.dataframe(med_transfers_df, use_container_width=True)
+        st.dataframe(med_transfers_df, width='stretch')
         
         dispatch_key = f"dispatched_{selected_date}"
         
         c_btn1, c_btn2 = st.columns([2, 1])
         with c_btn1:
-            if st.button("🚀 Authorize & Dispatch All Emergency Transfers", type="primary", use_container_width=True):
+            if st.button("🚀 Authorize & Dispatch All Emergency Transfers", type="primary", width='stretch'):
                 st.session_state[dispatch_key] = True
         
         if st.session_state.get(dispatch_key, False):
             with c_btn2:
-                if st.button("↺ Reset Dispatch Status", use_container_width=True):
+                if st.button("↺ Reset Dispatch Status", width='stretch'):
                     st.session_state[dispatch_key] = False
                     st.rerun()
                     
             st.markdown(f"""
-            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(15, 23, 42, 0.95) 100%); border: 1.5px solid #10b981; border-radius: 12px; padding: 18px 22px; margin-top: 14px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);">
-                <div style="font-size: 1.15rem; font-weight: 700; color: #10b981; display: flex; align-items: center; gap: 8px;">
+            <div style="background: #F0FDF4; border: 1.5px solid #10B981; border-radius: 12px; padding: 18px 22px; margin-top: 14px; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);">
+                <div style="font-size: 1.15rem; font-weight: 700; color: #047857; display: flex; align-items: center; gap: 8px;">
                     ✅ EMERGENCY LOGISTICS DISPATCH TRANSMITTED TO NATIONAL FLEET
                 </div>
-                <div style="font-size: 0.92rem; color: #cbd5e1; margin-top: 6px;">
-                    Order Reference: <b>DISP-{selected_date.replace('-', '')}-NET90</b> | Status: <span style="background: rgba(16, 185, 129, 0.2); color:#10b981; padding: 2px 8px; border-radius: 4px; font-weight:700;">ACTIVE IN TRANSIT</span>
+                <div style="font-size: 0.92rem; color: #1E293B; margin-top: 6px;">
+                    Order Reference: <b>DISP-{selected_date.replace('-', '')}-NET90</b> | Status: <span style="background: #D1FAE5; color:#047857; border: 1px solid #A7F3D0; padding: 2px 8px; border-radius: 4px; font-weight:700;">ACTIVE IN TRANSIT</span>
                 </div>
-                <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 8px; line-height: 1.6;">
+                <div style="font-size: 0.88rem; color: #475569; margin-top: 8px; line-height: 1.6;">
                     • <b>{len(med_transfers_df)}</b> medicine replenishment manifests dispatched via Cold-Chain transit units.<br>
                     • Emergency alerts & digital waybills routed to respective District Chief Medical Officers (CMOs).<br>
                     • Live GPS tracking initiated across state health logistics corridors.
@@ -610,7 +743,7 @@ with tabs[5]:
         sim_epsilon = st.slider("Privacy Budget (Epsilon ε)", min_value=0.05, max_value=3.0, value=0.5, step=0.05, help="Lower ε = Stronger privacy, higher noise; Higher ε = Weaker privacy, lower noise.")
         enable_dp_toggle = st.checkbox("Enable Differential Privacy Noise", value=True)
         
-        run_sim_btn = st.button("⚡ Run Federated Training Simulation")
+        run_sim_btn = st.button("⚡ Run Federated Training Simulation", width='stretch')
         
     with col_f2:
         if run_sim_btn or 'fed_results' in st.session_state:
@@ -634,13 +767,13 @@ with tabs[5]:
                 })
             conv_df = pd.DataFrame(conv_data)
             
-            line_chart = alt.Chart(conv_df).mark_line(point=True, color="#10b981", strokeWidth=3).encode(
+            line_chart = alt.Chart(conv_df).mark_line(point=True, color="#00ABE4", strokeWidth=3).encode(
                 x="Round:O",
                 y=alt.Y("Global Model RMSE:Q", title="Test Loss (RMSE)"),
                 tooltip=["Round", "Global Model RMSE", "Privacy Spent (ε)"]
             ).properties(height=260)
             
-            st.altair_chart(line_chart, use_container_width=True)
+            st.altair_chart(line_chart, width='stretch')
             
             # Official Federated Privacy Certification & Governance Card
             st.subheader("Federated Model Card & Privacy Certification")
@@ -660,7 +793,7 @@ with tabs[5]:
                         </div>
                     </div>
                     <div>
-                        <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px;">
+                        <span style="background: #D1FAE5; color: #047857; border: 1.5px solid #10B981; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px;">
                             ● ZERO-DATA-LEAKAGE VERIFIED
                         </span>
                     </div>
@@ -669,23 +802,23 @@ with tabs[5]:
                 <div class="cert-grid">
                     <div class="cert-item">
                         <div class="cert-item-label">Raw Patient Data Egress</div>
-                        <div class="cert-item-val" style="color: #10b981;">0.00% (Strict In-District Sovereignty)</div>
-                        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 4px;">Zero patient EHR records exfiltrated or centralized</div>
+                        <div class="cert-item-val" style="color: #059669;">0.00% (Strict In-District Sovereignty)</div>
+                        <div style="font-size: 0.78rem; color: #64748B; margin-top: 4px;">Zero patient EHR records exfiltrated or centralized</div>
                     </div>
                     <div class="cert-item">
                         <div class="cert-item-label">Differential Privacy Guarantee</div>
-                        <div class="cert-item-val" style="color: #38bdf8;">ε = {dp_cert.get('total_epsilon_spent', sim_epsilon):.2f} (Laplace Mechanism)</div>
-                        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 4px;">Bounded membership inference privacy loss</div>
+                        <div class="cert-item-val" style="color: #00ABE4;">ε = {dp_cert.get('total_epsilon_spent', sim_epsilon):.2f} (Laplace Mechanism)</div>
+                        <div style="font-size: 0.78rem; color: #64748B; margin-top: 4px;">Bounded membership inference privacy loss</div>
                     </div>
                     <div class="cert-item">
                         <div class="cert-item-label">Decentralized Consensus Nodes</div>
-                        <div class="cert-item-val" style="color: #a855f7;">{model_card.get('total_nodes', len(facilities_df['district'].unique()))} District Health Nodes</div>
-                        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 4px;">Federated Averaging (FedAvg) sample-weighted</div>
+                        <div class="cert-item-val" style="color: #7C3AED;">{model_card.get('total_nodes', len(facilities_df['district'].unique()))} District Health Nodes</div>
+                        <div style="font-size: 0.78rem; color: #64748B; margin-top: 4px;">Federated Averaging (FedAvg) sample-weighted</div>
                     </div>
                     <div class="cert-item">
                         <div class="cert-item-label">Cryptographic Transport</div>
-                        <div class="cert-item-val" style="color: #f59e0b;">TLS 1.3 / Ephemeral Vectors</div>
-                        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 4px;">Only model weights & sample counts exchanged</div>
+                        <div class="cert-item-val" style="color: #D97706;">TLS 1.3 / Ephemeral Vectors</div>
+                        <div style="font-size: 0.78rem; color: #64748B; margin-top: 4px;">Only model weights & sample counts exchanged</div>
                     </div>
                 </div>
                 
