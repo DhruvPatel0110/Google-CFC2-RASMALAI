@@ -1,24 +1,33 @@
 # 🏥 PHC Supply Chain Resilience Platform
 ### *Autonomous, Privacy-Preserving Health Infrastructure Intelligence for Rural & District Networks*
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-rasmalai--cfc2.streamlit.app-00ABE4?style=for-the-badge&logo=streamlit&logoColor=white)](https://rasmalai-cfc2.streamlit.app)
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-FF4B4B.svg)](https://streamlit.io/)
 [![XGBoost](https://img.shields.io/badge/ML-XGBoost-orange.svg)](https://xgboost.readthedocs.io/)
-[![Federated Learning](https://img.shields.io/badge/Privacy-FedAvg%20%2B%20Laplace%20DP-green.svg)](#module-5-sovereign-federated-learning--differential-privacy-core)
-[![Google Cloud Ready](https://img.shields.io/badge/Cloud-Google%20Cloud%20Ready-4285F4.svg)](#-google-cloud-production-architecture)
+[![Federated Learning](https://img.shields.io/badge/Privacy-FedAvg%20%2B%20Laplace%20DP-green.svg)](#-module-5-sovereign-federated-learning--differential-privacy-core)
+
+---
+
+## 🌐 Live Interactive Deployment
+
+> **Experience the live, interactive executive command center:**  
+> 🔗 **[https://rasmalai-cfc2.streamlit.app](https://rasmalai-cfc2.streamlit.app)**
+>
+> *No installation required. Explore real-time 3D geospatial transfer arcs, 7-day predictive stockout trajectories, dynamic bed rebalancing, and decentralized federated learning simulations directly in your browser.*
 
 ---
 
 ## 🌟 The Crisis: The Hidden Collapse in Rural Healthcare
 
-In rural and semi-urban India, **Primary Health Centres (PHCs)** serve as the frontline defense for over **800 million citizens**. Yet, these life-critical facilities operate as isolated data islands:
+In rural and semi-urban regions, **Primary Health Centres (PHCs)** serve as the frontline defense for over **800 million citizens**. Yet, these life-critical facilities operate as isolated data islands:
 
 * **The 48-Hour Stockout Trap:** A sudden spike in dengue or seasonal flu exhausts intravenous fluids and paracetamol supplies within 48 hours. By the time a paper ledger reaches the district warehouse, patients are turned away.
 * **The Phantom Capacity Paradox:** A maternal ward at PHC "A" is overwhelmed at 115% bed occupancy with exhausted nurses, while PHC "B"—just 14 kilometers away—has 6 empty beds and a full roster of doctors on duty. Because they cannot see each other’s operational reality, ambulances queue at overcrowded doors while resources sit idle.
 * **The Data Sovereignty Deadlock:** Centralizing sensitive patient health records across regional districts or sovereign jurisdictions violates data protection acts (such as India's **DPDP Act 2023** and **GDPR**), leaving predictive AI models starved of collective training data.
 
-> **Our Vision:** Team **RASMALAI** built the **PHC Supply Chain Resilience Platform** to transform healthcare logistics from **reactive crisis firefighting** into **predictive, cross-facility coordination**. 
+> **Our Solution:** Team **RASMALAI** built the **PHC Supply Chain Resilience Platform** to transform healthcare logistics from **reactive crisis firefighting** into **predictive, cross-facility coordination**. 
 >
 > By fusing **multi-horizon gradient boosted forecasting**, **graph-based redistribution optimization**, and **differential-privacy federated learning**, our platform predicts stockouts and bed bottlenecks up to **7 days in advance** and orchestrates automated, hyper-local transfers before a single patient is denied care.
 
@@ -55,7 +64,7 @@ graph TD
     end
 
     subgraph Presentation Layer ["💻 Command & Control Center"]
-        Rec1 --> UI["Streamlit Executive Command Dashboard<br/><i>3D PyDeck Geospatial Arcs & Telemetry</i>"]
+        Rec1 --> UI["Streamlit Operations Command Dashboard<br/><i>3D PyDeck Geospatial Arcs & Telemetry</i>"]
         Rec2 --> UI
         M5 --> UI
         M4 --> API["FastAPI High-Throughput REST Gateway"]
@@ -75,12 +84,12 @@ graph TD
 
 | Layer | Technologies | Architectural Rationale |
 |---|---|---|
-| **Predictive Modeling** | `XGBoost`, `scikit-learn`, `NumPy`, `Pandas` | MultiOutput regression delivers fast sub-second inference, handles non-linear outbreak features, and surfaces explainable feature importances (e.g. lead time, historical lag). |
-| **Federated Intelligence** | `Custom FedAvg Aggregator`, `Differential Privacy Engine (Laplace Mechanism)` | Mathematical privacy guarantees ($\epsilon=0.1, \delta=10^{-5}$) prevent model inversion attacks while enabling PHC nodes to collectively train global demand weights without data centralization. |
+| **Predictive Modeling** | `XGBoost`, `scikit-learn`, `NumPy`, `Pandas` | MultiOutput regression delivers fast sub-second inference, handles non-linear outbreak features, and surfaces explainable feature importances (e.g. lead time, historical consumption lags). |
+| **Federated Intelligence** | `Custom FedAvg Aggregator`, `Differential Privacy Engine (Laplace Mechanism)` | Mathematical privacy guarantees ($\epsilon=0.1, \delta=10^{-5}$) prevent model inversion attacks while enabling PHC nodes to collectively train global demand weights without centralizing health data. |
 | **Geospatial & Optimization** | `NetworkX`, `SciPy (linear_sum_assignment)`, `Haversine Matrix` | Solves multi-facility supply-demand matching within seconds, applying strict transport deadline and staffing feasibility constraints. |
-| **Backend & Microservices** | `FastAPI`, `Uvicorn`, `Pydantic v2`, `Python 3.12` | Asynchronous, typed endpoints for edge device queries, alert webhooks, and federated weight submission. |
-| **Frontend & Command Center** | `Streamlit`, `PyDeck (WebGL 3D)`, `Altair`, `CSS Glassmorphism` | Low-latency operations dashboard featuring animated 3D transfer trajectories, interactive district filtering, and drill-down analytics. |
-| **Google Cloud Ready** | `Cloud Run`, `Vertex AI`, `BigQuery`, `Cloud Storage` | Cloud-native blueprint designed for containerized deployment, serverless model serving, and geo-partitioned health telemetry. |
+| **Backend & Microservices** | `FastAPI`, `Uvicorn`, `Pydantic v2`, `Python 3.12` | Asynchronous, strictly typed endpoints for edge device queries, alert webhooks, and federated weight submission. |
+| **Frontend & Command Center** | `Streamlit`, `PyDeck (WebGL 3D)`, `Altair`, `Enterprise Glassmorphism CSS` | Low-latency operations dashboard featuring animated 3D transfer trajectories, interactive district filtering, and drill-down analytics. |
+| **Cloud Deployment** | `Streamlit Community Cloud`, `GitHub CI/CD` | High-availability cloud deployment with automatic WebSocket state management, instant scaling, and continuous deployment from repository commits. |
 
 ---
 
@@ -118,12 +127,13 @@ $$\hat{Y}_{f, d, t+1 \dots t+7} = \mathcal{M}_{XGB}\left(X_{time}, X_{facility},
 #### 3. Operational Output & Decision Support
 * **Multi-step 7-day SKU consumption forecasts** with confidence intervals.
 * **Automated Reorder Triggering:** Classifies stock risk into `CRITICAL`, `WARNING`, and `HEALTHY`. If $\text{Days to Stockout} \le \text{Lead Time}$, it immediately issues recommended order quantities calculated to cover the replenishment window plus a calibrated safety stock buffer.
+* **One-Click PO Export:** Generates standardized Purchase Order manifests downloadable in CSV format.
 
 ---
 
 ### 🛏️ Module 2: Inpatient Bed Occupancy & Length of Stay (LOS) Dynamics
 
-#### 2. The Challenge
+#### 1. The Challenge
 During epidemic peaks, hospital admissions spike non-linearly. Without visibility into patient discharge trajectories, PHC administrators cannot distinguish between a facility that will naturally free up beds tomorrow versus one heading for total collapse.
 
 #### 2. Technical Formulation
@@ -138,6 +148,7 @@ Module 2 employs a **two-stage predictive dynamic pipeline**:
 #### 3. Operational Output & Decision Support
 * **7-Day Trajectory Curve:** Continuous day-by-day forecast of bed occupancy percentages across all medical wards.
 * **Capacity Bottleneck Warnings:** Flags facilities expected to breach **85% capacity** (pre-overflow) and **95% capacity** (critical overflow) 4 days before crisis impact.
+* **Network-Wide Overcrowding Overview:** Instant visibility into all facilities in the network currently at or projecting bed overflow.
 
 ---
 
@@ -199,7 +210,8 @@ Module 4 constructs a **directed, weighted geospatial facility network graph** $
 
 #### 3. Operational Output & Decision Support
 * **Actionable Transfer Manifests:** Generates exact dispatch orders detailing source facility, destination facility, transfer quantity, driver transit time estimate, and clinical rationale.
-* **Interactive 3D Geospatial Arcs:** Renders real-time redistribution flows on interactive PyDeck maps with color-coded urgency trajectories.
+* **Ambulance Diversion Manifest:** Details diverted patient counts, routing distance, ETA, and emergency approval roles.
+* **Interactive 3D Geospatial Arcs:** Renders real-time redistribution flows on PyDeck maps with distinct blue (medicine cold-chain) and amber (patient ambulance) trajectories.
 
 ---
 
@@ -233,41 +245,9 @@ Module 5 implements a decentralized **Federated Averaging (FedAvg)** network com
    $$W_{\text{private}} = W_{\text{global}} + \text{Laplace}\left(0, \; \frac{\Delta S}{\epsilon}\right)$$
    * With privacy budget $\epsilon = 0.1$, the network guarantees strong mathematical privacy with negligible degradation in forecast accuracy ($<2.5\%$ RMSE difference vs. non-private centralized training).
 
-#### 4. Operational Output & Decision Support
+#### 3. Operational Output & Decision Support
 * **Multi-facility Model Convergence Auditing:** Real-time tracking of training rounds, participant node weights, loss curves, and differential privacy consumption budgets.
-* **Model Card Generation:** Transparent reporting of global vs. local model metrics across participating network facilities.
-
----
-
-## ☁️ Google Cloud Production Architecture
-
-Designed for enterprise deployment on Google Cloud Platform:
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        Google Cloud Platform                           │
-├────────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│   [ Cloud Storage ] ──> Raw HMIS Data Feeds & Anonymized Ledgers       │
-│           │                                                            │
-│           ▼                                                            │
-│     [ BigQuery ] ──────> Geospatial Analytics & Longitudinal Telemetry │
-│           │                                                            │
-│           ▼                                                            │
-│    [ Vertex AI ] ─────> Federated Coordinator & Model Registry         │
-│           │             - Continuous Model Monitoring                  │
-│           │             - Automated Retraining Pipeline                │
-│           ▼                                                            │
-│    [ Cloud Run ] ─────> Containerized High-Performance Services        │
-│           ├─ FastAPI Microservices Backend                             │
-│           └─ Streamlit Operations Command Dashboard                    │
-│                                                                        │
-└────────────────────────────────────────────────────────────────────────┘
-```
-
-* **Vertex AI:** Manages model versioning, global parameter aggregation checkpoints, and drift monitoring.
-* **Google Cloud Run:** Serverless, auto-scaling deployment of both the FastAPI REST endpoints and the Streamlit frontend.
-* **BigQuery GIS:** High-speed geospatial joins and regional epidemiological query caching across thousands of facilities.
+* **Formal Federated Model Card:** Standardized data governance card certifying DP parameters, raw data isolation, and privacy compliance.
 
 ---
 
@@ -319,10 +299,10 @@ python -m pytest tests/ -v
 
 The platform is evaluated against synthetic datasets generated from real-world Indian Public Health Standards (IPHS) distributions:
 
-* **90 Primary Health Centres** across 3 topographically distinct districts.
+* **90 Primary Health Centres** across 30 distinct districts and multiple states.
 * **492,000+ Historical Medicine Transactions** spanning 12 months across 25 critical SKUs.
 * **10,000+ Inpatient Admission & Census Records**.
-* **Key Empirical Metrics:**
+* **Key Empirical Results:**
   * **$89.4\%$ reduction** in projected stockout events via 48-hour proactive cross-redistribution.
   * **$0$ patient transfers** dispatched to understaffed facilities (guaranteed by Module 3 staffing gate).
   * **$< 1.8 \text{ hours}$ average inter-PHC medicine transit response time**.
