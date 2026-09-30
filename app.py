@@ -36,6 +36,59 @@ st.markdown("""
     .main { 
         background-color: #E9F1FA !important; 
     }
+
+    /* Eliminate Sidebar Header (Image 1: div.st-emotion-cache-10p9htt / [data-testid="stSidebarHeader"]) */
+    [data-testid="stSidebarHeader"],
+    div[data-testid="stSidebarHeader"],
+    .stSidebarHeader {
+        display: none !important;
+        height: 0px !important;
+        min-height: 0px !important;
+        padding: 0px !important;
+        margin: 0px !important;
+        visibility: hidden !important;
+    }
+
+    /* Eliminate Top App Header & Toolbar (Image 2: div.stAppToolbar / [data-testid="stHeader"] / [data-testid="stToolbar"]) */
+    header[data-testid="stHeader"],
+    [data-testid="stHeader"],
+    .stAppHeader {
+        display: none !important;
+        height: 0px !important;
+        min-height: 0px !important;
+        padding: 0px !important;
+        margin: 0px !important;
+        visibility: hidden !important;
+    }
+    
+    div[data-testid="stToolbar"],
+    [data-testid="stToolbar"],
+    .stAppToolbar {
+        display: none !important;
+        height: 0px !important;
+        min-height: 0px !important;
+        padding: 0px !important;
+        margin: 0px !important;
+        visibility: hidden !important;
+    }
+
+    /* Pull Content All The Way Up (Remove large default 5rem/6rem top padding) */
+    .block-container,
+    [data-testid="stMainBlockContainer"],
+    .stMainBlockContainer,
+    .main .block-container {
+        padding-top: 0.8rem !important;
+        padding-bottom: 2rem !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }
+
+    [data-testid="stSidebarContent"] {
+        padding-top: 0.5rem !important;
+    }
+    [data-testid="stSidebarUserContent"] {
+        padding-top: 0.2rem !important;
+    }
     
     /* Vibrant Blue Sidebar (Image 4) with Crisp White Text */
     [data-testid="stSidebar"], 
