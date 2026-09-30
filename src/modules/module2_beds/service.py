@@ -15,6 +15,7 @@ class BedModuleService:
         self.los_model: Optional[LengthOfStayModel] = None
         self.cleaned_data: Optional[Dict[str, pd.DataFrame]] = None
         self.feature_df: Optional[pd.DataFrame] = None
+        self._assessment_cache: Dict[str, pd.DataFrame] = {}
 
     def initialize_data(self):
         """Loads, cleans datasets, and initializes the LOS benchmark model."""
@@ -35,6 +36,9 @@ class BedModuleService:
         Runs model inference and bed capacity risk evaluation for a given snapshot date.
         """
         self.initialize_data()
+        cache_key = str(as_of_date) if as_of_date else "latest"
+        if cache_key in self._assessment_cache:
+            return self._assessment_cache[cache_key]
         
         if as_of_date is not None:
             target_date = pd.to_datetime(as_of_date)
@@ -58,6 +62,7 @@ class BedModuleService:
             facilities_df=self.cleaned_data['facilities']
         )
         
+        self._assessment_cache[cache_key] = risk_df
         return risk_df
 
     def get_overcrowded_facilities(self, as_of_date: Optional[str] = None) -> List[Dict[str, Any]]:

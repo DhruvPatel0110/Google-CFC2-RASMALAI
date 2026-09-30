@@ -13,6 +13,7 @@ class MedicineModuleService:
         self.forecaster = forecaster or MedicineDemandForecaster()
         self.cleaned_data: Optional[Dict[str, pd.DataFrame]] = None
         self.feature_df: Optional[pd.DataFrame] = None
+        self._assessment_cache: Dict[str, pd.DataFrame] = {}
 
     def initialize_data(self):
         """Loads and pre-processes the underlying datasets if not already cached."""
@@ -33,6 +34,9 @@ class MedicineModuleService:
         If date is None, uses the latest available date.
         """
         self.initialize_data()
+        cache_key = str(as_of_date) if as_of_date else "latest"
+        if cache_key in self._assessment_cache:
+            return self._assessment_cache[cache_key]
         
         if as_of_date is not None:
             target_date = pd.to_datetime(as_of_date)
@@ -59,6 +63,7 @@ class MedicineModuleService:
             medicines_df=self.cleaned_data['medicines']
         )
         
+        self._assessment_cache[cache_key] = risk_df
         return risk_df
 
     def get_critical_stockouts(self, as_of_date: Optional[str] = None) -> List[Dict[str, Any]]:

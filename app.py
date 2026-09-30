@@ -323,20 +323,24 @@ st.markdown("""
 # ---------------------------------------------------------------------------
 @st.cache_resource
 def get_services():
-    med_svc = MedicineModuleService()
-    bed_svc = BedModuleService()
-    staff_svc = StaffModuleService()
-    redis_svc = RedistributionService(med_svc, bed_svc, staff_svc)
-    fed_svc = FederationModuleService()
-    
-    # Initialize data & baseline models
-    med_svc.initialize_data()
-    bed_svc.initialize_data()
-    staff_svc.initialize_data()
-    redis_svc.initialize()
-    fed_svc.initialize_data()
-    
-    return med_svc, bed_svc, staff_svc, redis_svc, fed_svc
+    try:
+        med_svc = MedicineModuleService()
+        bed_svc = BedModuleService()
+        staff_svc = StaffModuleService()
+        redis_svc = RedistributionService(med_svc, bed_svc, staff_svc)
+        fed_svc = FederationModuleService()
+        
+        # Initialize data & baseline models
+        med_svc.initialize_data()
+        bed_svc.initialize_data()
+        staff_svc.initialize_data()
+        redis_svc.initialize()
+        fed_svc.initialize_data()
+        
+        return med_svc, bed_svc, staff_svc, redis_svc, fed_svc
+    except Exception as e:
+        st.error(f"⚠️ Critical error initializing analytical services: {e}")
+        raise e
 
 med_service, bed_service, staff_service, redis_service, fed_service = get_services()
 facilities_df = DataLoader.load_facilities()
@@ -480,6 +484,8 @@ with tabs[0]:
     st.subheader("Geographic Facility Network & Active Inter-PHC Transfer Routes")
     
     map_facilities = facilities_df[facilities_df['district'].isin(districts_filter)].copy()
+    if len(map_facilities) == 0:
+        map_facilities = facilities_df.copy()
     
     # Calculate status color per facility
     def get_color(phc_id):
@@ -596,7 +602,7 @@ with tabs[1]:
             st.info(f"**Actionable Recommendation:** {item_row['recommendation']}")
 
     st.subheader("Automated District Warehouse Purchase Orders (Reorder Proposals)")
-    po_orders = med_service.run_assessment(selected_date)
+    po_orders = risk_df
     orders_table = po_orders[po_orders['alert_level'].isin(['CRITICAL', 'WARNING'])][[
         'phc_id', 'district', 'drug_id', 'closing_stock', 'safety_stock', 'days_to_stockout', 'shortfall_qty', 'alert_level'
     ]]
