@@ -12,7 +12,7 @@ from src.modules.module5_federation.service import FederationModuleService
 
 app = FastAPI(
     title="PHC Supply Chain Resilience API",
-    description="Federated AI Platform for Health Resource Management, Forecasting, and Cross-District Redistribution",
+    description="Federated AI Platform for Health Resource Management, Forecasting, and Cross-District Redistribution.",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
