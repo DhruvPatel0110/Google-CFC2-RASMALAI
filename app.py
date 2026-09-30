@@ -401,7 +401,7 @@ districts_filter = st.sidebar.multiselect(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.caption("Federated AI Hub | Version 1.0.0 | Python 3.14 + XGBoost + FedAvg")
+st.sidebar.caption("Federated AI Hub | Version 1.0.0 | Python 3.12 + XGBoost + FedAvg")
 
 # ---------------------------------------------------------------------------
 # Main Navigation Tabs
